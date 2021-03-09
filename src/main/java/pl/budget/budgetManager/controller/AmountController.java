@@ -11,10 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import pl.budget.budgetManager.model.Amount;
 import pl.budget.budgetManager.service.AmountService;
 
-import javax.validation.Valid;
-import java.math.BigDecimal;
-import java.util.regex.Pattern;
-
 @Controller
 public class AmountController {
 
