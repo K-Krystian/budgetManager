@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Index page</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+    <h1>Budżet - Lista Wydatków</h1>
+    <a th:href="@{/showAddForm}" class="btn btn-primary btn-sm mb-1">Dodaj kwotę</a>
+    <table border="2" class="table table-hover table-responsive-md">
+        <thead>
+        <tr>
+            <th style="width: 25%">Kwota
+                <div class="btn" role="group">
+                    <a th:href="@{/sortOnlyOutByAmount}" class="btn btn-primary btn-sm mb-1">↑</a>
+                    <a th:href="@{/sortOnlyOutByAmountReserved}" class="btn btn-primary btn-sm mb-1">↓</a>
+                    <a th:href="@{/onlyOut}" class="btn btn-primary btn-sm mb-1">Domyślny</a>
+                </div>
+            </th>
+            <th style="width: 30%">Kategoria</th>
+            <th style="width: 30%">Przychód / Wydatek
+                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                    <a th:href="@{/}" type="button" class="btn btn-secondary">Wszystkie</a>
+                    <a th:href="@{/onlyIn}" type="button" class="btn btn-secondary">Przychody</a>
+                    <a th:href="@{/onlyOut}" type="button" class="btn btn-secondary">Wydatki</a>
+                </div>
+            </th>
+            <th style="width: 15%">Akcja</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="budget : ${sortOnlyOutByAmount}">
+            <td th:text="${#numbers.formatDecimal(budget.value, 1, 2)}"></td>
+            <td th:text="${budget.category}"></td>
+            <td th:text="${budget.inOut}"></td>
+            <td>
+                <a th:href="@{/showUpdateForm/{id}(id=${budget.id})}" class="btn btn-primary" data-toggle="button"
+                   aria-pressed="false" autocomplete="off">Edytuj</a>
+                <a th:href="@{/deleteAmount/{id}(id=${budget.id})}" class="btn btn-danger" data-toggle="button"
+                   aria-pressed="false" autocomplete="off">Usuń</a>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot border="2" class="table-success table-responsive-md">
+        <td th:text="${retSumOut}"></td>
+        <td colspan="3">Suma</td>
+        </tfoot>
+    </table>
+</div>
+
+</body>
+</html>
